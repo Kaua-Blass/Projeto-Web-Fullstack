@@ -1,12 +1,47 @@
 "use client";
+
 import Image from "next/image";
 import { MdSearch } from "react-icons/md";
+import { useState } from "react";
 import { useCarrinho } from "../context/CarrinhoContext";
 
 export default function CarrinhoPage() {
     const { carrinho, removerItem, alterarQuantidade } = useCarrinho();
     const subtotal = carrinho.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
     const totalPix = carrinho.reduce((acc, item) => acc + (item.pix || item.preco) * item.quantidade, 0);
+
+    // Estado para CEP e frete
+    const [cep, setCep] = useState("");
+    const [frete, setFrete] = useState(null);
+    const [loadingFrete, setLoadingFrete] = useState(false);
+    const [erroFrete, setErroFrete] = useState("");
+
+    // Função para consultar frete
+    async function consultarFrete() {
+        setLoadingFrete(true);
+        setErroFrete("");
+        setFrete(null);
+        try {
+            if (!cep.match(/^\d{8}$/)) {
+                setErroFrete("CEP inválido. Digite 8 números.");
+                setLoadingFrete(false);
+                return;
+            }
+            const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            const data = await res.json();
+            if (data.erro) {
+                setErroFrete("CEP não encontrado.");
+                setLoadingFrete(false);
+                return;
+            }
+            // Simulação: frete base R$ 19,90 + R$ 2,00 por item
+            const valorFrete = 19.90 + carrinho.reduce((acc, item) => acc + item.quantidade * 2, 0);
+            setFrete(valorFrete);
+        } catch {
+            setErroFrete("Erro ao consultar frete.");
+        }
+        setLoadingFrete(false);
+    }
 
     return (
         <main>
@@ -82,14 +117,42 @@ export default function CarrinhoPage() {
                         </div>
                         <div className="shipping-info">
                             <p className="meios-envio-title">Meios de envio:</p>
-                            <input type="text" placeholder="Seu CEP" className="cep-input" />
+                            <div style={{ display: "flex", gap: 8 }}>
+                                <input
+                                    type="text"
+                                    placeholder="Seu CEP"
+                                    className="cep-input"
+                                    value={cep}
+                                    onChange={e => setCep(e.target.value.replace(/\D/g, ""))}
+                                    maxLength={8}
+                                    style={{ width: 120 }}
+                                />
+                                <button type="button" onClick={consultarFrete} disabled={loadingFrete} style={{ padding: "6px 12px" }}>
+                                    {loadingFrete ? "Consultando..." : "Consultar Frete"}
+                                </button>
+                            </div>
+                            {erroFrete && <div style={{ color: "#c00", fontSize: 13 }}>{erroFrete}</div>}
+                            {frete !== null && !erroFrete && (
+                                <div style={{ color: "#2ecc40", fontWeight: 500, marginTop: 4 }}>
+                                    Frete: R$ {frete.toFixed(2)}
+                                </div>
+                            )}
                             <a href="#" className="nao-sei-cep">Não sei meu CEP</a>
                         </div>
                         <div className="carrinho-totals total-final">
                             <span>Total:</span>
                             <div className="total-prices">
-                                <span className="price-original">R$ {subtotal.toFixed(2)}</span>
-                                <span className="price-pix">Ou R$ {totalPix.toFixed(2)} com PIX</span>
+                                <span className="price-original">
+                                    R$ {(frete !== null && !erroFrete ? subtotal + frete : subtotal).toFixed(2)}
+                                    {frete !== null && !erroFrete && (
+                                        <span style={{ color: '#888', fontSize: 13, marginLeft: 8 }}>
+                                            (inclui frete)
+                                        </span>
+                                    )}
+                                </span>
+                                <span className="price-pix">
+                                    Ou R$ {(frete !== null && !erroFrete ? totalPix + frete : totalPix).toFixed(2)} com PIX
+                                </span>
                             </div>
                         </div>
                         <button className="iniciar-compra-btn full-width">Iniciar compra</button>
