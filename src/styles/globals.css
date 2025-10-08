@@ -1,6 +1,5 @@
 /* app/globals.css */
 
-/* Estilos Globais */
 body {
     margin: 0;
     padding: 0;
@@ -86,13 +85,15 @@ body {
 
 .product-section {
     padding: 0 20px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 .product-section h2 {
-    text-align: center;
+    text-align: left;
     font-size: 24px;
     margin-bottom: 20px;
+    display: inline-block;
 }
 
 .product-list {
@@ -213,7 +214,7 @@ section {
 }
 
 .google {
-  background: #f5f5f5;
+  background: #d6d6d6;
 }
 
 .apple {

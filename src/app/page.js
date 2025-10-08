@@ -120,7 +120,7 @@ export default function Home() {
       </section>
 
       <section className="product-section">
-        <h2>Lançamentos<span>›</span></h2>
+        <h2 className="Itens-Principal">Lançamentos<span>›</span></h2>
         <div className="product-list">
           {lancamentosMockados.map(produto => (
             <div key={produto.id} className="product-card">
