@@ -2,6 +2,7 @@
 "use client";
 import Image from "next/image";
 import { MdSearch } from "react-icons/md";
+import { useState, useEffect } from "react";
 import { useCarrinho } from "./context/CarrinhoContext";
 
 const produtosMockados = [
@@ -22,6 +23,19 @@ export default function Home() {
   const { adicionarItem, carrinho } = useCarrinho();
   const totalQtd = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
   const totalValor = carrinho.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
+  const [usuarioLogado, setUsuarioLogado] = useState(null);
+  const [showMenu, setShowMenu] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const nome = localStorage.getItem("usuario_nome");
+      if (nome) setUsuarioLogado(nome);
+    }
+  }, []);
+  function handleLogout() {
+    localStorage.removeItem("usuario_nome");
+    setUsuarioLogado(null);
+    setShowMenu(false);
+  }
   return (
     <main>
       <header className="header-container">
@@ -34,7 +48,34 @@ export default function Home() {
           </div>
           <img src="logo.png" alt="Logo Eu Quero" className="logo-img" />
           <div className="user-area">
-            <span onClick={() => window.location.href = "/login"}>👤 Login / Cadastro</span>
+            <span
+              style={{ position: "relative", cursor: "pointer" }}
+              onClick={() => {
+                if (!usuarioLogado) {
+                  window.location.href = "/login";
+                } else {
+                  setShowMenu((v) => !v);
+                }
+              }}
+            >
+              {usuarioLogado ? `👤 ${usuarioLogado}` : "👤 Login / Cadastro"}
+              {usuarioLogado && showMenu && (
+                <div style={{
+                  position: "absolute",
+                  top: "100%",
+                  right: 0,
+                  background: "#fff",
+                  border: "1px solid #ddd",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                  zIndex: 10,
+                  minWidth: 120,
+                  padding: 4
+                }}>
+                  <div style={{ padding: "8px 12px", cursor: "pointer" }} onClick={() => setShowMenu(false)}>Meus Dados</div>
+                  <div style={{ padding: "8px 12px", cursor: "pointer", color: "#c00" }} onClick={handleLogout}>Sair</div>
+                </div>
+              )}
+            </span>
             <span onClick={() => window.location.href = "/carrinho"}>
               🛒 Carrinho({totalQtd}) <strong>R$ {totalValor.toFixed(2)}</strong>
             </span>

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { MdSearch } from "react-icons/md";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCarrinho } from "../context/CarrinhoContext";
 
 export default function CarrinhoPage() {
@@ -15,8 +15,20 @@ export default function CarrinhoPage() {
     const [frete, setFrete] = useState(null);
     const [loadingFrete, setLoadingFrete] = useState(false);
     const [erroFrete, setErroFrete] = useState("");
+    const [usuarioLogado, setUsuarioLogado] = useState(null);
+    const [showMenu, setShowMenu] = useState(false);
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const nome = localStorage.getItem("usuario_nome");
+            if (nome) setUsuarioLogado(nome);
+        }
+    }, []);
+    function handleLogout() {
+        localStorage.removeItem("usuario_nome");
+        setUsuarioLogado(null);
+        setShowMenu(false);
+    }
 
-    // Função para consultar frete
     async function consultarFrete() {
         setLoadingFrete(true);
         setErroFrete("");
@@ -34,7 +46,6 @@ export default function CarrinhoPage() {
                 setLoadingFrete(false);
                 return;
             }
-            // Simulação: frete base R$ 19,90 + R$ 2,00 por item
             const valorFrete = 19.90 + carrinho.reduce((acc, item) => acc + item.quantidade * 2, 0);
             setFrete(valorFrete);
         } catch {
@@ -55,7 +66,34 @@ export default function CarrinhoPage() {
                     </div>
                     <img src="/logo.png" alt="Logo Eu Quero" className="logo-img" />
                     <div className="user-area">
-                        <span onClick={() => window.location.href = "/login"}>👤 Login / Cadastro</span>
+                        <span
+                            style={{ position: "relative", cursor: "pointer" }}
+                            onClick={() => {
+                                if (!usuarioLogado) {
+                                    window.location.href = "/login";
+                                } else {
+                                    setShowMenu((v) => !v);
+                                }
+                            }}
+                        >
+                            {usuarioLogado ? `👤 ${usuarioLogado}` : "👤 Login / Cadastro"}
+                            {usuarioLogado && showMenu && (
+                                <div style={{
+                                    position: "absolute",
+                                    top: "100%",
+                                    right: 0,
+                                    background: "#fff",
+                                    border: "1px solid #ddd",
+                                    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                                    zIndex: 10,
+                                    minWidth: 120,
+                                    padding: 4
+                                }}>
+                                    <div style={{ padding: "8px 12px", cursor: "pointer" }} onClick={() => setShowMenu(false)}>Meus Dados</div>
+                                    <div style={{ padding: "8px 12px", cursor: "pointer", color: "#c00" }} onClick={handleLogout}>Sair</div>
+                                </div>
+                            )}
+                        </span>
                         <span style={{ cursor: "default" }}>🛒 Carrinho({carrinho.reduce((acc, item) => acc + item.quantidade, 0)}) <strong>R$ {subtotal.toFixed(2)}</strong></span>
                     </div>
                 </div>
