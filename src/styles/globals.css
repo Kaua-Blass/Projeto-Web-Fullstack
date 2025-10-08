@@ -9,7 +9,6 @@ body {
     background-color: #f8f8f8;
 }
 
-/* Estilos do Header/Navegação */
 .header-container {
     border-bottom: 1px solid #ccc;
     margin-bottom: 20px;
@@ -28,7 +27,7 @@ body {
     padding: 8px;
     border-radius: 4px;
     border: 1px solid #ccc;
-    width: 300px; /* Ajuste conforme necessário */
+    width: 300px; 
 }
 
 .logo-img {
@@ -44,7 +43,12 @@ body {
     cursor: pointer;
     color: #0070f3;
     font-size: 14px;
-    white-space: nowrap; /* Impede quebras de linha */
+    white-space: nowrap; 
+}
+
+.nav-container {
+  background-color: #0073e6; 
+  padding: 10px 0;
 }
 
 .nav-list {
@@ -63,10 +67,9 @@ body {
 }
 
 .nav-list a:hover {
-    color: #0070f3;
+    color: #000000;
 }
 
-/* Estilos das Seções e Cards de Produto */
 .product-section {
     padding: 0 20px;
     margin-bottom: 30px;
@@ -126,4 +129,20 @@ body {
 
 .add-button:hover {
     background-color: #005bb5;
+}
+
+.image-wrapper {
+  position: relative; 
+  width: 100%; 
+  padding-bottom: 100%; 
+}
+
+.product-card {
+    overflow: hidden; 
+}
+
+.logo-img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 90;
 }
