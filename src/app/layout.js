@@ -1,16 +1,21 @@
 // app/layout.js (OU .tsx)
-import '../styles/globals.css'; // Importa seu CSS global aqui
+
+
+import '../styles/globals.css';
+import { CarrinhoProvider } from "./context/CarrinhoContext";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <body>
-        {/* O 'children' é onde o seu 'page.js' e outras páginas serão renderizadas */}
-        {children}
+        <CarrinhoProvider>
+          {children}
+        </CarrinhoProvider>
       </body>
     </html>
   );
 }
+
 
 export const metadata = {
   title: 'Eu Quero - Sua Loja',

@@ -21,19 +21,33 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
+    justify-content: space-between; 
 }
 
 .input-busca {
-    padding: 8px;
-    border-radius: 4px;
+    padding: 15px;
+    border-radius: 30px;
     border: 1px solid #ccc;
-    width: 300px; 
+    width: 300px;
+    background-color: #c0bbbb;
+    position: relative;
+}
+
+.busca-icone {
+  position: absolute;
+  right: -15px;
+  top: 55%;
+  transform: translateY(-50%);
+  color: #888;
+  cursor: pointer;
+  z-index: 1;
 }
 
 .logo-img {
     height: 50px;
+    width: 150px;
+    margin-inline: auto; 
 }
-
 .user-area {
     display: flex;
     gap: 15px;
@@ -82,10 +96,10 @@ body {
 }
 
 .product-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  justify-content: flex-start;
 }
 
 .product-card {
@@ -145,4 +159,302 @@ body {
     max-width: 100px;
     height: auto;
     border-radius: 90;
+}
+
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh; 
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+
+.login-form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.forgot {
+  display: block;
+  text-align: right;
+  font-size: 0.8em;
+  margin: 5px 0 15px;
+  color: #0074d9;
+  text-decoration: none;
+}
+
+.divider {
+  text-align: center;
+  color: #777;
+  margin: 15px 0;
+}
+
+.google, .apple {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+.google {
+  background: #f5f5f5;
+}
+
+.apple {
+  background: #000;
+  color: #fff;
+}
+
+.login-btn {
+  background: #28a745;
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.create-account {
+  text-align: center;
+  font-size: 0.9em;
+  margin-top: 15px;
+}
+
+
+.carousel-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.scrollable {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 16px;
+  padding: 10px;
+  scroll-snap-type: x mandatory;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.arrow:hover {
+  background: #f0f0f0;
+}
+
+.arrow.left {
+  left: -20px;
+}
+
+.arrow.right {
+  right: -20px;
+}
+
+/* --- ESTILOS DA PÁGINA DE CARRINHO (CARRINHO-PAGE) --- */
+.carrinho-page-container {
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+    padding-top: 50px; 
+    min-height: 80vh; 
+    background-color: #f8f8f8;
+}
+
+.carrinho-resumo-box {
+    width: 1500px; 
+    background-color: #fff;
+    padding: 100px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative; 
+}
+
+.carrinho-fechar-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    padding: 5px;
+}
+
+.carrinho-item {
+    display: flex;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.carrinho-item-details {
+    flex-grow: 1;
+}
+
+.item-name {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+.item-controls-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.remove-link {
+    font-size: 12px;
+    color: #0070f3;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 5px;
+    display: block; 
+    text-align: right;
+}
+
+.quantity-controls {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.quantity-controls button {
+    background-color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.quantity-controls input {
+    width: 30px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 5px 0;
+}
+
+.carrinho-footer {
+    padding-top: 10px;
+}
+
+.carrinho-totals {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.carrinho-totals.subtotal {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.shipping-info {
+    padding-bottom: 15px;
+}
+
+.meios-envio-title {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.cep-input {
+    width: 10%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.nao-sei-cep {
+    font-size: 12px;
+    color: #0070f3;
+    text-decoration: underline;
+    display: block;
+    margin-top: 5px;
+}
+
+.carrinho-totals.total-final {
+    margin-top: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    align-items: flex-end;
+}
+
+.total-prices {
+    text-align: right;
+}
+
+.price-original {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 0.8em;
+    font-weight: normal;
+    display: block;
+}
+
+.price-pix {
+    color: #28a745;
+    display: block;
+    font-size: 1em;
+    margin-top: 2px;
+}
+
+.iniciar-compra-btn {
+    width: 15%;
+    padding: 12px;
+    background-color: #63a635; 
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 15px;
+    margin-left: auto; 
+    display: block; 
+}
+
+.ver-mais-produtos {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #0070f3;
+    font-size: 0.9em;
 }
