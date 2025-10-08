@@ -10,9 +10,9 @@ export default function CarrinhoPage() {
     const subtotal = carrinho.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
     const totalPix = carrinho.reduce((acc, item) => acc + (item.pix || item.preco) * item.quantidade, 0);
 
-    // Estado para CEP e frete
     const [cep, setCep] = useState("");
     const [frete, setFrete] = useState(null);
+    const [localizacao, setLocalizacao] = useState("");
     const [loadingFrete, setLoadingFrete] = useState(false);
     const [erroFrete, setErroFrete] = useState("");
     const [usuarioLogado, setUsuarioLogado] = useState(null);
@@ -30,23 +30,33 @@ export default function CarrinhoPage() {
     }
 
     async function consultarFrete() {
-        setLoadingFrete(true);
-        setErroFrete("");
-        setFrete(null);
+    setLoadingFrete(true);
+    setErroFrete("");
+    setFrete(null);
+    setLocalizacao("");
         try {
             if (!cep.match(/^\d{8}$/)) {
                 setErroFrete("CEP inválido. Digite 8 números.");
                 setLoadingFrete(false);
                 return;
             }
-            const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-            const data = await res.json();
-            if (data.erro) {
+
+            const resCep = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            const dataCep = await resCep.json();
+            if (dataCep.erro) {
                 setErroFrete("CEP não encontrado.");
                 setLoadingFrete(false);
                 return;
             }
-            const valorFrete = 19.90 + carrinho.reduce((acc, item) => acc + item.quantidade * 2, 0);
+            setLocalizacao(`${dataCep.localidade} - ${dataCep.uf}`);
+
+            const cepOrigem = "01001000";
+            const distancia = Math.abs(parseInt(cep.substring(0,2)) - parseInt(cepOrigem.substring(0,2)));
+            const peso = 1; // kg
+            const largura = 20; // cm
+            const altura = 20; // cm
+            const comprimento = 20; // cm
+            const valorFrete = 18 + distancia * 0.2 + peso * 1 + (largura + altura + comprimento) * 0.01;
             setFrete(valorFrete);
         } catch {
             setErroFrete("Erro ao consultar frete.");
@@ -173,6 +183,11 @@ export default function CarrinhoPage() {
                             {frete !== null && !erroFrete && (
                                 <div style={{ color: "#2ecc40", fontWeight: 500, marginTop: 4 }}>
                                     Frete: R$ {frete.toFixed(2)}
+                                    {localizacao && (
+                                        <span style={{ color: '#555', fontWeight: 400, marginLeft: 8 }}>
+                                            ({localizacao})
+                                        </span>
+                                    )}
                                 </div>
                             )}
                             <a href="#" className="nao-sei-cep">Não sei meu CEP</a>

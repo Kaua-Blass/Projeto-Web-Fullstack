@@ -4,7 +4,6 @@ import { useRef, useState, useEffect } from 'react';
 import { MdSearch } from 'react-icons/md'; 
 
 export default function login() {
-  // Usuário de teste
   const TEST_USER = { email: 'teste@teste.com', senha: '123456', nome: 'Usuário Teste' };
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -13,7 +12,6 @@ export default function login() {
   const [usuarioLogado, setUsuarioLogado] = useState(null);
 
   useEffect(() => {
-    // Verifica se já existe usuário logado
     const nome = localStorage.getItem("usuario_nome");
     if (nome) setUsuarioLogado(nome);
   }, []);

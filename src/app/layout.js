@@ -1,4 +1,4 @@
-// app/layout.js (OU .tsx)
+// app/layout.js 
 
 
 import '../styles/globals.css';
