@@ -2,6 +2,8 @@
 "use client";
 import Image from "next/image";
 import { MdSearch } from "react-icons/md";
+import { FaUser } from "react-icons/fa";      
+import { FaShoppingCart } from "react-icons/fa"; 
 import { useState, useEffect } from "react";
 import { useCarrinho } from "./context/CarrinhoContext";
 
@@ -58,7 +60,8 @@ export default function Home() {
                 }
               }}
             >
-              {usuarioLogado ? `👤 ${usuarioLogado}` : "👤 Login / Cadastro"}
+              <FaUser size={20} /> 
+              {usuarioLogado ? ` ${usuarioLogado}` : " Login / Cadastro"}
               {usuarioLogado && showMenu && (
                 <div style={{
                   position: "absolute",
@@ -76,8 +79,9 @@ export default function Home() {
                 </div>
               )}
             </span>
+            <FaShoppingCart size={20} />
             <span onClick={() => window.location.href = "/carrinho"}>
-              🛒 Carrinho({totalQtd}) <strong>R$ {totalValor.toFixed(2)}</strong>
+              Carrinho({totalQtd}) <strong>R$ {totalValor.toFixed(2)}</strong>
             </span>
           </div>
         </div>

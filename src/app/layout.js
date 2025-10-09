@@ -16,7 +16,6 @@ export default function RootLayout({ children }) {
   );
 }
 
-
 export const metadata = {
   title: 'Eu Quero - Sua Loja',
   description: 'Melhores produtos térmicos.',

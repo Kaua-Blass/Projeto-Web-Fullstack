@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Avaliação 2 - Projeto Web Fullstack
 
-## Getting Started
+## Descrição
+O projeto é um **site baseado em uma loja de venda de utilidades real de Ijuí "@euquero.utilidade"**, seguindo o tema definido no protótipo da Avaliação 1, com algumas alterações justificadas para melhorar **usabilidade e experiência do usuário**.  
 
-First, run the development server:
+O projeto contém **3 telas principais**:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Telas do Projeto
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 1. Tela Inicial
+- Exibe produtos em destaque e permite busca por itens.  
+- **Alterações realizadas:**  
+  - Barra de navegação **centralizada** para melhorar estética e organização.  
+  - Inclusão da opção **“Início”** na barra de navegação.  
+  - Atualização dos **ícones de login/cadastro e carrinho** para `FaUser` e `FaShoppingCart` do React Icons.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Tela de Carrinho
+- Originalmente, o protótipo previa o carrinho como **aba deslizante** pela direita da tela.  
+- **Alteração:** carrinho aberto em **nova página separada**.  
+- **Justificativa:** melhora a visualização dos itens, evita confusão com a tela inicial, garante consistência e melhor responsividade em dispositivos móveis.
 
-## Learn More
+### 3. Tela de Login / Cadastro
+- Originalmente, o login estava **alinhado à esquerda** com informações extras.  
+- **Alterações realizadas:**  
+  - Tela de login **centralizada**.  
+  - Interface mais limpa, removendo informações desnecessárias.  
+  - Ajuste de cores e destaque do link **“Esqueceu a senha?”**.  
+  - Inclusão da opção **“Não possui uma conta? Criar uma conta”**.  
+- **Justificativa:** aumenta usabilidade, clareza e facilidade de navegação para o usuário.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
