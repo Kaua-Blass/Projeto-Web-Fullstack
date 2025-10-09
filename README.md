@@ -30,5 +30,6 @@ O projeto contém **3 telas principais**:
   - Inclusão da opção **“Não possui uma conta? Criar uma conta”**.  
 - **Justificativa:** aumenta usabilidade, clareza e facilidade de navegação para o usuário.
 
+**Gabriel Gabriel do Nascimento Esteves; Kauã Costella Blass; Vinícius Ribeiro Dutra**
 ---
 
